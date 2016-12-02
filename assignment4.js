@@ -1,16 +1,3 @@
-// The anonymous function below will fire on page load
-
-// Some things to consider
-// $.ajax(); to make your requests a little easier. Or the vanilla js way, it's up to you.
-// $.on(); for event handling
-// Remember, selecting elements in jQuery is like selecting them in CSS
-// You'll probably have to manipulate some strings
-// some jQuery functions to help display results
-// $.show(), $.hide(), $.slideup(), $.slidedown(), $.fadein(), $.fadeout()
-// Add content from requests with something like
-// $.html(), $.text(), etc.
-// keyup events could be helpful to get value of field as the user types
-
 (function() {
   var internal_DB;
   console.log('Keepin\'n it clean with an external script!');
@@ -41,7 +28,9 @@
     var comics = new Array();
     var programming = new Array();
     var interests = new Array();
-    if(dis.length > 0){
+    console.log(dis.val().length);
+    if(dis.val().length > 0){
+      $("#no_res").remove();
       for(i = 0; i < internal_DB.comics.length; i++){
         if(~internal_DB.comics[i].toLowerCase().indexOf(test_val.toLowerCase())){
           comics.push(internal_DB.comics[i]);
@@ -68,10 +57,14 @@
         $("[data-link='comics']").remove();
         var comic_data = "";
         for(i = 0; i < comics.length; i++){
-          comic_data += "<li>" + comics[i] + "</li>";
+          comic_data += "<li><a href='https://www.google.com/#q=" + comics[i] + "' target='_target'>" + comics[i] + "</a></li>";
         }
 
-        $("#results").append("<span id='comics'>Results in: Comics</span><ul data-link='comics'>" + comic_data + "</ul>")
+        comic_sing = "s";
+        if(comics.length == 1)
+          comic_sing = "";
+
+        $("#results").append("<span id='comics'>" + comics.length+ " result" + comic_sing + " in: Comics</span><ul data-link='comics'>" + comic_data + "</ul>")
       }
       else{
         $("#comics").remove();
@@ -83,10 +76,14 @@
         $("[data-link='programming']").remove();
         var programming_data = "";
         for(i = 0; i < programming.length; i++){
-          programming_data += "<li>" + programming[i] + "</li>";
+          programming_data += "<li><a href='https://www.google.com/#q=" + programming[i] + "' target='_blank'>" + programming[i] + "</a></li>";
         }
 
-        $("#results").append("<span id='programming'>Results in: Programming</span><ul data-link='programming'>" + programming_data + "</ul>")
+        programming_sing = "s";
+        if(programming.length == 1)
+          programming_sing = "";
+
+        $("#results").append("<span id='programming'>" + programming.length + " result" + programming_sing + " in: Programming</span><ul data-link='programming'>" + programming_data + "</ul>")
       }
       else{
         $("#programming").remove();
@@ -98,19 +95,26 @@
         $("[data-link='interests']").remove();
         var interests_data = "";
         for(i = 0; i < interests.length; i++){
-          interests_data += "<li>" + interests[i] + "</li>";
+          interests_data += "<li><a href='https://www.google.com/#q=" + interests[i] + "' target='_blank'>" + interests[i] + "</a></li>";
         }
 
-        $("#results").append("<span id='interests'>Results in: Interests</span><ul data-link='interests'>" + interests_data + "</ul>")
+        interests_sing = "s";
+        if(interests.length == 1)
+          interests_sing = "";
+
+        $("#results").append("<span id='interests'>" + interests.length+ " result" + interests_sing + " in: Interests</span><ul data-link='interests'>" + interests_data + "</ul>")
       }
       else{
         $("#interests").remove();
         $("[data-link='interests']").remove();
       }
 
-      dis.animate({'borderBottomLeftRadius': '0', 'borderBottomRightRadius': '0'});
+      if($("#results").find("ul").length == 0){
+        $("#results").html("<span id='no_res'>No Results!</span>");
+      }
     }
-    else if(dis.length == 0){
+    else if(dis.val().length == 0){
+      $("#results").remove();     
     }
   })
 })();

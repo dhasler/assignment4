@@ -1,7 +1,8 @@
-/*
-  Don't forget to style the results from the search!
-  And anything elese you add to the application, for that matter.
-*/
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700');
+
+html{
+  font-family: 'Ubuntu', sans-serif;
+}
 
 .flexsearch-wrapper {
   height: auto;
@@ -47,6 +48,7 @@
   font-size: 26px;
   -webkit-appearance: none;
   -moz-appearance: none;
+  z-index: 9;
 }
 
 .flexsearch-submit {
@@ -95,4 +97,71 @@ input:-moz-placeholder {
   font-weight: bold;
   line-height: 45px;
   text-align: center;
+}
+
+#results{
+  border: 5px solid #888;
+  border-top: 5px solid #fff;
+  border-radius: 0 0 35px 35px;
+  margin: auto;
+  margin-top: -5px;
+  width: 75%;
+  z-index: 10;
+}
+
+.flexsearch-input:focus + #results{
+  border-color: #333;
+  border-top: 5px solid #fff;
+}
+
+#results span{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 18px;
+  margin: 35px;
+  margin-bottom: 0;
+}
+
+#results ul{
+  list-style: none;
+  margin-top: 2px;
+  margin-left: 5px;
+}
+#results ul li{
+  position: relative;
+}
+
+#results ul a{
+  color: #333;
+  transition: all 0.1s;
+}
+
+#results ul a:before{
+  content: "\1433";
+  display: block;
+  left:-25px;
+  opacity: 0;
+  position: absolute;
+  transition: all 0.2s;
+}
+
+#results ul a:hover:before{
+  left:-12px;
+  opacity: 1;
+}
+
+#results ul a:hover:after{
+  content: "Click Link";
+  color: #888;
+  margin-left: 15px;
+  opacity: 0.5;
+}
+
+
+#results ul a:hover{
+  color: #f48942;
+}
+
+#no_res{
+  height: 35px;
+  padding: 35px;
 }
